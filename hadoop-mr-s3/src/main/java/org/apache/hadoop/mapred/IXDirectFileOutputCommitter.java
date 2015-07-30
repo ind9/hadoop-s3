@@ -7,14 +7,10 @@ import org.apache.hadoop.fs.s3native.NativeS3FileSystem;
 
 import java.io.IOException;
 
+public class IxDirectFileOutputCommitter extends FileOutputCommitter{
+    private static final Log LOG = LogFactory.getLog(IxDirectFileOutputCommitter.class);
 
-/*
-* Realized that DFOC doesn't need anything specific. In other words, it's a NOOP version of FOC
-* */
-public class DirectFileOutputCommitter extends FileOutputCommitter{
-    private static final Log LOG = LogFactory.getLog(DirectFileOutputCommitter.class);
-
-    public DirectFileOutputCommitter() {
+    public IxDirectFileOutputCommitter() {
     }
 
     public void setupJob(JobContext context) throws IOException {

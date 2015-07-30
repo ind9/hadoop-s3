@@ -2,7 +2,6 @@ package org.apache.hadoop.mapreduce.lib;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.s3native.NativeS3FileSystem;
 import org.apache.hadoop.mapreduce.JobContext;
@@ -11,12 +10,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter;
 
 import java.io.IOException;
 
-public class DirectFileOutputCommitter extends FileOutputCommitter {
-    private static final Log LOG = LogFactory.getLog(DirectFileOutputCommitter.class);
+public class IxDirectFileOutputCommitter extends FileOutputCommitter {
+    private static final Log LOG = LogFactory.getLog(IxDirectFileOutputCommitter.class);
     private Path outputPath = null;
     private final boolean directWrite;
 
-    public DirectFileOutputCommitter(Path outputPath, TaskAttemptContext context) throws IOException {
+    public IxDirectFileOutputCommitter(Path outputPath, TaskAttemptContext context) throws IOException {
         super(outputPath, context);
         if(outputPath != null && context != null) {
             this.outputPath = outputPath;

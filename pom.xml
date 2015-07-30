@@ -19,16 +19,6 @@
             <id>cloudera</id>
             <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
         </repository>
-        <repository>
-            <id>indix-central</id>
-            <name>Indix Maven</name>
-            <url>http://artifacts.indix.tv:8081/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <id>indix-snapshot</id>
-            <name>Indix Maven Snapshot</name>
-            <url>http://artifacts.indix.tv:8081/artifactory/libs-snapshot</url>
-        </repository>
     </repositories>
 
     <dependencies>
