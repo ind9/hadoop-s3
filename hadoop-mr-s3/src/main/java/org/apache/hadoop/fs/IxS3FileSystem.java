@@ -7,25 +7,10 @@ import org.apache.hadoop.util.Progressable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class IxS3FileSystem extends NativeS3FileSystem {
     private Path workingDir;
-
-    private List<Path> existingPathsFor(Path path) throws IOException {
-        List<Path> paths = new ArrayList<Path>();
-        for (Path p : IxS3Path.allPaths(path)) {
-            if(super.exists(p)) paths.add(p);
-        }
-        return paths;
-    }
-
-    private Path absolute(Path path) {
-        if(path.isAbsolute()) return path;
-        return new Path(workingDir, path);
-    }
 
     @Override
     public URI getUri() {
@@ -80,11 +65,16 @@ public class IxS3FileSystem extends NativeS3FileSystem {
 
     @Override
     public FileStatus[] listStatus(Path path) throws IOException {
-        List<FileStatus> allStatuses = new ArrayList<FileStatus>();
+        Map<Path,FileStatus> allStatuses = new TreeMap<Path,FileStatus>();
         for (Path p : existingPathsFor(absolute(path))) {
-            allStatuses.addAll(Arrays.asList(super.listStatus(p)));
+            for (FileStatus fileStatus : super.listStatus(p)) {
+                if(allStatuses.containsKey(fileStatus.getPath()))
+                    allStatuses.put(fileStatus.getPath(), merge(allStatuses.get(fileStatus.getPath()), fileStatus);
+                else
+                    allStatuses.put(fileStatus.getPath(), fileStatus);
+            }
         }
-        return (FileStatus[]) allStatuses.toArray();
+        return (FileStatus[]) allStatuses.values().toArray();
     }
 
     @Override
@@ -108,6 +98,39 @@ public class IxS3FileSystem extends NativeS3FileSystem {
     public FileStatus getFileStatus(Path path) throws IOException {
         List<Path> existing = existingPathsFor(absolute(path));
         if(existing.isEmpty()) return super.getFileStatus(IxS3Path.pickRandomPath(absolute(path)));
-        return super.getFileStatus(existing.get(0));
+        FileStatus fileStatus = null;
+        for (Path p : existing) {
+            if(fileStatus == null) fileStatus = super.getFileStatus(p);
+            else fileStatus = merge(fileStatus, super.getFileStatus(p));
+        }
+        return fileStatus;
+    }
+
+    private List<Path> existingPathsFor(Path path) throws IOException {
+        List<Path> paths = new ArrayList<Path>();
+        for (Path p : IxS3Path.allPaths(path)) {
+            if(super.exists(p)) paths.add(p);
+        }
+        return paths;
+    }
+
+    private Path absolute(Path path) {
+        if(path.isAbsolute()) return path;
+        return new Path(workingDir, path);
+    }
+
+    private static FileStatus merge(FileStatus first, FileStatus other) {
+        return new FileStatus(
+                first.getLen() + other.getLen(),
+                first.isDirectory(),
+                first.getReplication(),
+                first.getBlockSize(),
+                Math.max(first.getModificationTime(), other.getModificationTime()),
+                Math.max(first.getAccessTime(), other.getAccessTime()),
+                first.getPermission(),
+                first.getOwner(),
+                first.getGroup(),
+                first.getPath()
+        );
     }
 }
