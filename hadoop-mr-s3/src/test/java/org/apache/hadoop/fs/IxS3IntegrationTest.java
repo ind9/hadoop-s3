@@ -26,6 +26,8 @@ public class IxS3IntegrationTest {
             System.out.println(fileStatus.getPath());
         }
 
+        fs.delete(new Path("s3i://indix-tmp/dummy"), true);
+
         fs.close();
         System.exit(0);
     }

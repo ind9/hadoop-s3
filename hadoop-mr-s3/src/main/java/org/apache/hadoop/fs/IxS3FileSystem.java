@@ -68,7 +68,10 @@ public class IxS3FileSystem extends FileSystem {
     @Override
     public boolean rename(Path from, Path to) throws IOException {
         if(!exists(from)) throw new IOException(from + " doesnt exist");
-        throw new RuntimeException("Will comeback to this");
+        for (Path path : existingPathsFor(absolute(from))) {
+            nativeFS.rename(path, IxS3Path.withSamePrefix(path, to));
+        }
+        return true;
     }
 
     @Override
