@@ -34,4 +34,13 @@ public class IxS3Path {
             throw new RuntimeException(ex);
         }
     }
+
+    public static Path toIxS3Path(Path path) {
+        URI uri = path.toUri();
+        try {
+            return new Path(new URI("s3i", uri.getAuthority(), uri.getPath().replaceAll("^/[^/]*", ""), uri.getQuery(), uri.getFragment()));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
