@@ -69,7 +69,7 @@ public class IxS3FileSystem extends NativeS3FileSystem {
         for (Path p : existingPathsFor(absolute(path))) {
             for (FileStatus fileStatus : super.listStatus(p)) {
                 if(allStatuses.containsKey(fileStatus.getPath()))
-                    allStatuses.put(fileStatus.getPath(), merge(allStatuses.get(fileStatus.getPath()), fileStatus);
+                    allStatuses.put(fileStatus.getPath(), merge(allStatuses.get(fileStatus.getPath()), fileStatus));
                 else
                     allStatuses.put(fileStatus.getPath(), fileStatus);
             }
