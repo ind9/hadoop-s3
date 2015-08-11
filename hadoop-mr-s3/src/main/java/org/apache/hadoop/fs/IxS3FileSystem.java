@@ -40,12 +40,9 @@ public class IxS3FileSystem extends FileSystem {
 
     @Override
     public FSDataInputStream open(Path path, int bufferSize) throws IOException {
-        List<InputStream> streams = new ArrayList<InputStream>();
-        for (Path p : existingPathsFor(absolute(path))) {
-            streams.add(nativeFS.open(p, bufferSize));
-        }
-        if(streams.isEmpty()) throw new IOException(path +" doesnt exist");
-        return new FSDataInputStream(new CompositeInputStream(streams));
+        List<Path> paths = existingPathsFor(absolute(path));
+        if(paths.isEmpty()) throw new IOException(path +" doesnt exist");
+        return nativeFS.open(paths.get(0), bufferSize);
     }
 
     @Override

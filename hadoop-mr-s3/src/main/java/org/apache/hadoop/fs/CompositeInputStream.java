@@ -16,7 +16,7 @@ public class CompositeInputStream extends InputStream {
     }
 
     public CompositeInputStream(List<? extends InputStream> streams){
-        this((InputStream [])streams.toArray());
+        this(streams.toArray(new InputStream[0]));
     }
 
 
