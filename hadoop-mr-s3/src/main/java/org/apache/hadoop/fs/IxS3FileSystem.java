@@ -5,6 +5,7 @@ import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.fs.s3native.NativeS3FileSystem;
 import org.apache.hadoop.util.Progressable;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -12,7 +13,8 @@ import java.util.*;
 
 public class IxS3FileSystem extends FileSystem {
     private Path workingDir;
-    private NativeS3FileSystem nativeFS; 
+    private NativeS3FileSystem nativeFS;
+    private URI uri;
     
     public IxS3FileSystem(NativeS3FileSystem fileSystem) {
         nativeFS = fileSystem;
@@ -25,11 +27,12 @@ public class IxS3FileSystem extends FileSystem {
     @Override
     public URI getUri() {
         //Change this
-        return nativeFS.getUri();
+        return this.uri;
     }
 
     @Override
     public void initialize(URI uri, Configuration conf) throws IOException {
+        this.uri = uri;
         nativeFS.initialize(IxS3Path.pickRandomPath(new Path(uri)).toUri(), conf);
         setConf(conf);
         super.initialize(uri, conf);
@@ -89,7 +92,7 @@ public class IxS3FileSystem extends FileSystem {
         for (Path p : existingPathsFor(absolute(path))) {
             for (FileStatus fileStatus : nativeFS.listStatus(p)) {
                 if(allStatuses.containsKey(fileStatus.getPath()))
-                    allStatuses.put(fileStatus.getPath(), merge(allStatuses.get(fileStatus.getPath()), fileStatus));
+                    allStatuses.put(fileStatus.getPath(), merge(allStatuses.get(fileStatus.getPath()), convertToIxPath(fileStatus)));
                 else
                     allStatuses.put(fileStatus.getPath(), convertToIxPath(fileStatus));
             }
@@ -117,11 +120,11 @@ public class IxS3FileSystem extends FileSystem {
     @Override
     public FileStatus getFileStatus(Path path) throws IOException {
         List<Path> existing = existingPathsFor(absolute(path));
-        if(existing.isEmpty()) return nativeFS.getFileStatus(IxS3Path.pickRandomPath(absolute(path)));
+        if(existing.isEmpty()) return convertToIxPath(nativeFS.getFileStatus(IxS3Path.pickRandomPath(absolute(path))));
         FileStatus fileStatus = null;
         for (Path p : existing) {
-            if(fileStatus == null) fileStatus = nativeFS.getFileStatus(p);
-            else fileStatus = merge(fileStatus, nativeFS.getFileStatus(p));
+            if(fileStatus == null) fileStatus = convertToIxPath(nativeFS.getFileStatus(p));
+            else fileStatus = merge(fileStatus, convertToIxPath(nativeFS.getFileStatus(p)));
         }
         return fileStatus;
     }
