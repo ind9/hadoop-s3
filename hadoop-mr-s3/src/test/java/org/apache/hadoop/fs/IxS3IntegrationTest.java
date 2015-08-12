@@ -17,8 +17,9 @@ public class IxS3IntegrationTest {
                 "-Dfs.s3n.awsAccessKeyId="+ args[0],
                 "-Dfs.s3n.awsSecretAccessKey="+ args[1],
                 "-Dfs.s3i.impl="+IxS3FileSystem.class.getName(),
-                "-ls",
-                "s3i://indix-tmp/"
+                "-mv",
+                "s3i://indix-tmp/dummy",
+                "s3i://indix-tmp/dummy2"
         });
     }
 }

@@ -28,4 +28,10 @@ public class IxS3PathTest {
         Path nativePath = new Path("s3n://somebucket/p/somedirectory");
         assertThat(IxS3Path.toIxS3Path(nativePath), is(new Path("s3i://somebucket/somedirectory")));
     }
+
+    @Test
+    public void shouldFindANewNativePathWithSamePrefixButDifferentFileOrDirectory() {
+        Path s3Path = IxS3Path.withSamePrefix(new Path("s3n://somebucket/p/somedirectory"), new Path("s3i://somebucket/someotherdirectory"));
+        assertThat(s3Path, is(new Path("s3n://somebucket/p/someotherdirectory")));
+    }
 }

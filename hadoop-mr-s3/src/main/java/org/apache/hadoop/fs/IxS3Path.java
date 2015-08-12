@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IxS3Path {
@@ -48,7 +49,8 @@ public class IxS3Path {
     }
 
     private static String prefixOf(Path path) {
-        return prefixRegex.matcher(path.toUri().getPath()).group(1);
+        Matcher matcher = prefixRegex.matcher(path.toUri().getPath());
+        return matcher.matches()? matcher.group(1): null;
     }
 
     public static Path withSamePrefix(Path fromS3Path, Path toIxPath) {
