@@ -77,6 +77,7 @@ public class Jets3tNFSStoreWithStorageClassSupport extends Jets3tNativeFileSyste
 
   @Override
   public void initialize(URI uri, Configuration conf) throws IOException {
+    super.initialize(uri, conf);
     S3Credentials s3Credentials = new S3Credentials();
     s3Credentials.initialize(uri, conf);
     try {
