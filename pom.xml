@@ -10,8 +10,8 @@
     </modules>
 
     <properties>
-        <hadoop.mr1.version>2.0.0-mr1-cdh4.2.1</hadoop.mr1.version>
-        <hadoop.version>2.0.0-cdh4.2.1</hadoop.version>
+        <hadoop.mr1.version>2.6.0-mr1-cdh5.4.4</hadoop.mr1.version>
+        <hadoop.version>2.6.0-cdh5.4.4</hadoop.version>
     </properties>
   
     <repositories>
@@ -24,19 +24,11 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-core</artifactId>
-            <version>${hadoop.mr1.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.mr1.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
@@ -46,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-hdfs</artifactId>
+            <artifactId>hadoop-aws</artifactId>
             <version>${hadoop.version}</version>
             <scope>provided</scope>
             <optional>true</optional>

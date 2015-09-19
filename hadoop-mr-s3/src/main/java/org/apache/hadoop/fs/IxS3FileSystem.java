@@ -2,6 +2,7 @@ package org.apache.hadoop.fs;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.permission.FsPermission;
+import org.apache.hadoop.fs.s3native.Jets3tNFSStoreWithStorageClassSupport;
 import org.apache.hadoop.fs.s3native.NativeS3FileSystem;
 import org.apache.hadoop.util.Progressable;
 
@@ -21,7 +22,7 @@ public class IxS3FileSystem extends FileSystem {
     }
 
     public IxS3FileSystem() {
-        nativeFS = new NativeS3FileSystem();
+        nativeFS = new NativeS3FileSystem(new Jets3tNFSStoreWithStorageClassSupport());
     }
 
     @Override
