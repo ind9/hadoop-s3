@@ -87,6 +87,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Using older plugin because of https://jira.codehaus.org/browse/MVERSIONS-201 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>1.3.1</version>
+            </plugin>
 
         </plugins>
     </build>
