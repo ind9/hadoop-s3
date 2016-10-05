@@ -4,7 +4,7 @@
     <groupId>com.indix</groupId>
     <artifactId>hadoop-s3</artifactId>
     <packaging>pom</packaging>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.10</version>
     <modules>
         <module>hadoop-mr-s3</module>
     </modules>
