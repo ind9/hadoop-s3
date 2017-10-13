@@ -4,7 +4,7 @@
     <groupId>com.indix</groupId>
     <artifactId>hadoop-mr-s3</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
 
     <properties>
         <hadoop.mr1.version>2.0.0-mr1-cdh4.2.1</hadoop.mr1.version>
