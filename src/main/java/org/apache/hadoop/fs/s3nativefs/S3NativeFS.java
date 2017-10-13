@@ -27,7 +27,7 @@ public class S3NativeFS extends DelegateToFileSystem {
             DataChecksum.CHECKSUM_NULL);
 
     public S3NativeFS(URI theUri, Configuration conf) throws IOException, URISyntaxException {
-        super(theUri, new NativeS3FileSystem(), conf, "s3n", true);
+        super(theUri, new NativeS3FileSystem(), conf, "s3n", false);
     }
 
     @Override
