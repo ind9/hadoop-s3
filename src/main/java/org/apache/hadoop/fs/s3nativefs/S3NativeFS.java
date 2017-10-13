@@ -31,11 +31,6 @@ public class S3NativeFS extends DelegateToFileSystem {
     }
 
     @Override
-    public int getUriDefaultPort() {
-        return -1; // No default port for s3
-    }
-
-    @Override
     public FsServerDefaults getServerDefaults() throws IOException {
         return SERVER_DEFAULTS;
     }
