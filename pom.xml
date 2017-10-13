@@ -2,12 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.indix</groupId>
-    <artifactId>hadoop-s3</artifactId>
+    <artifactId>hadoop-mr-s3</artifactId>
     <packaging>pom</packaging>
     <version>1.0.11</version>
-    <modules>
-        <module>hadoop-mr-s3</module>
-    </modules>
 
     <properties>
         <hadoop.mr1.version>2.0.0-mr1-cdh4.2.1</hadoop.mr1.version>

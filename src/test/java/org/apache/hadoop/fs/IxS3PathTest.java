@@ -2,7 +2,6 @@ package org.apache.hadoop.fs;
 
 import org.junit.Test;
 
-import java.net.URISyntaxException;
 import java.util.List;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;

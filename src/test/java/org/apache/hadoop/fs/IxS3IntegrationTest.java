@@ -1,12 +1,5 @@
 package org.apache.hadoop.fs;
 
-import org.apache.hadoop.conf.Configuration;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Map;
-
 public class IxS3IntegrationTest {
     public static void main(String[] args) throws Exception {
         if(args.length < 2) {
