@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.indix</groupId>
     <artifactId>hadoop-mr-s3</artifactId>
-    <version>1.0.13</version>
+    <version>1.0.15</version>
 
     <properties>
         <hadoop.mr1.version>2.0.0-mr1-cdh4.2.1</hadoop.mr1.version>
@@ -106,12 +106,12 @@
         <repository>
             <id>central</id>
             <name>Indix Artifacts-releases</name>
-            <url>http://artifacts.indix.tv:8081/artifactory/libs-release-local</url>
+            <url>http://artifacts.midgard.avalara.io:8081/artifactory/libs-release-local</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Indix Artifacts-releases</name>
-            <url>http://artifacts.indix.tv:8081/artifactory/libs-snapshot-local</url>
+            <url>http://artifacts.midgard.avalara.io:8081/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
